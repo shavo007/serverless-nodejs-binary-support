@@ -11,4 +11,4 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/wiki', wiki);
 
-module.exports.handler = serverless(app);
+module.exports.handler = serverless(app, { binary: ['image/jpeg'] });

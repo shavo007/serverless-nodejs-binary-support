@@ -1,29 +1,25 @@
-import HelloWorld from './helloWorld';
-import logger from './logger';
-
-const message = ({ time, ...rest }) =>
-  new Promise(resolve =>
-    setTimeout(() => {
-      resolve(`${rest.copy} (with a delay)`);
-    }, time * 1000)
-  );
+import axios from 'axios';
 
 const hello = async (event, context, callback) => {
-  const helloWorld = new HelloWorld('world');
+  const response = await axios({
+    method: 'get',
+    url: 'http://i.stack.imgur.com/PIFN0.jpg',
+    responseType: 'arraybuffer',
+  });
+  // res.set('Content-Disposition', 'attachment; filename=image1.jpg');
+  // res.set('Content-Type', 'image/jpeg')
+  const base = Buffer.from(response.data, 'binary').toString('base64');
 
-  logger.error(`exception Bar`);
-
-  const response = {
+  /* some boring work generating data string */
+  return callback(null, {
     statusCode: 200,
-    body: JSON.stringify({
-      message: ` ${helloWorld.hello()} ${await message({
-        time: 1,
-        copy: 'Your function executed successfully!',
-      })}`,
-    }),
-  };
-
-  callback(null, response);
+    // body: response.data, // base64 encoded string
+    body: base,
+    isBase64Encoded: true,
+    headers: {
+      'Content-Type': 'image/jpeg',
+    },
+  });
 };
 
 export default hello;

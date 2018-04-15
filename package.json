@@ -63,8 +63,10 @@
     "report-dir": "./reports/coverage"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-runtime": "6.26.0",
     "express": "4.16.3",
+    "request": "^2.85.0",
     "serverless-http": "1.5.5",
     "source-map-support": "0.5.4",
     "winston": "2.4.1"
@@ -95,6 +97,7 @@
     "prettier": "1.12.0",
     "rimraf": "2.6.2",
     "serverless": "1.26.1",
+    "serverless-apigw-binary": "^0.4.4",
     "serverless-domain-manager": "2.3.6",
     "serverless-offline": "3.20.2",
     "serverless-plugin-aws-alerts": "1.2.4",
